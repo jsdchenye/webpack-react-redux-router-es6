@@ -28,6 +28,7 @@ class B extends React.Component {
 	render() {
 		return (
 			<div style={{marginTop: 20}}>
+				<p>TAB2中的内容</p>
 				<input type="text" value={this.state.number} readOnly="value" />
 				<button style={{width: 60, textAlign: 'center', marginLeft: -1}} onClick={this.handleEditNumber}>-</button>
 			</div>
