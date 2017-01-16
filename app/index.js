@@ -6,10 +6,9 @@ import ReactDOM from 'react-dom';
 
 import { hashHistory, Router, Route, IndexRoute} from 'react-router'
 
-import BaseInfo from './components/account/BaseInfo/BaseInfo';
-import ChangePassword from './components/account/ChangePassword/ChangePassword';
-import InfoCenter from './components/infocenter/InfoCenter';
-import Nav from './components/nav/Nav';
+import Nav from './components/NAV/Nav';
+import A from './components/A/A';
+import B from './components/B/B';
 
 import {Provider} from 'react-redux';
 import generatorStore from './redux/store';
@@ -21,8 +20,9 @@ class App extends React.Component {
 			<Provider store={store}>
 				<Router history={hashHistory}>
 					<Route path="/" component={Nav}>
-						<IndexRoute component={BaseInfo}/>
-						<Route path="infocenter" component={InfoCenter} />
+						<IndexRoute component={A}/>
+						<Route path="left" component={A} />
+						<Route path="right" component={B} />
 					</Route>
 				</Router>
 			</Provider>

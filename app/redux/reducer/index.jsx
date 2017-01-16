@@ -1,10 +1,20 @@
-import { combineReducers } from 'redux';
-import accountReducer from './accountReducer';
-import channelReducer from './channelReducer';
+import {
+	EDIT_NUMBER,
+} from '../constants';
 
-const index = combineReducers({
-	accountReducer,
-	channelReducer,
-});
+const defaultState = {
+	initNum: 10,  //默认初始化number为10，
+};
 
-export default index;
+const reducer = (state=defaultState,action)=> {
+	switch (action.type) {
+		case 'EDIT_NUMBER':
+			return {
+				...state,
+				initNum: action.param,
+			};
+		default:
+			return state;
+	}
+};
+export default reducer;

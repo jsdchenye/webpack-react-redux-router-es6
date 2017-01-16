@@ -1,7 +1,8 @@
 /*-------------引入antd中的css样式，并对其中的部分样式进行修改------------*/
 @import "../node_modules/antd/lib/style/themes/default.less";
 
-@icon-url: "~antd_font/iconfont";
+//@icon-url: "~antd_font/iconfont";
+@import "../static/antd_font/iconfont.css";
 @import "../node_modules/antd/lib/style/core/index.less";
 @import "../node_modules/antd/lib/style/components.less";
 
@@ -11,5 +12,11 @@ html,body {
 	padding: 0px;
 	font-size: 14px;
 	font-family: "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
-
+	a {
+		color: #000000;
+	}
+	.top-nav-active {
+		padding-bottom: 3px;
+		border-bottom: 2px solid #108ee9;
+	}
 }
