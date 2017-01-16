@@ -9,7 +9,7 @@ var TEMP_PATH = path.resolve(ROOT_PATH, 'templates');
 
 module.exports = {
 	entry: {
-		index: path.resolve(APP_PATH,'index.js')
+		index: path.resolve(APP_PATH,'index.js'),
 	},
 	output: {
 		path: BUILD_PATH,
