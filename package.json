@@ -1,8 +1,8 @@
 {
-  "name": "demo",
-  "version": "1.0.0",
-  "description": "一套react的前端开发方案",
-  "main": "webpack.config.js",
+  "name": "webpack-react-redux-router-es6",
+  "version": "1.0.1",
+  "description": "升级了webpack并且重新调整了redux",
+  "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --progress --profile --colors --hot --proxy",
     "build": "webpack --progress --profile --colors --config webpack.production.config.js",

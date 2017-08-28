@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-class Nav extends React.Component {
+class NavComponent extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -9,7 +9,7 @@ class Nav extends React.Component {
 	}
 	render() {
 		return (
-			<div style={{fontSize: 16, fontWeight: 'bold'}}>
+			<div style={{fontSize: 16, fontWeight: 'bold',padding: '5px 5px'}}>
 				<Link to="/left" style={{marginRight: 20}} activeClassName="top-nav-active">左侧</Link>
 				<Link to="/right" activeClassName="top-nav-active">右侧</Link>
 				{this.props.children}
@@ -17,4 +17,4 @@ class Nav extends React.Component {
 		);
 	}
 }
-export default Nav;
+export default NavComponent;

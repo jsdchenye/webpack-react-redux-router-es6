@@ -1,3 +1,6 @@
+/**
+ * Created by Administrator on 2017/8/28.
+ */
 var path = require('path');
 var webpack = require('webpack');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
