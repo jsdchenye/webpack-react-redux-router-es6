@@ -1,7 +1,10 @@
 /**
  * Created by Administrator on 2017/8/28.
  */
+var path = require('path');
 var webpack = require('webpack');
+
+var ROOT_PATH = path.join(__dirname);
 
 var vendors = [
 	'jquery',
@@ -20,7 +23,7 @@ var vendors = [
 ];
 module.exports = {
 	output: {
-		path: './output',
+		path: path.join(ROOT_PATH, 'output'),
 		filename: '[name].js',
 		library: '[name]',
 	},
@@ -35,6 +38,6 @@ module.exports = {
 		})
 	],
 	resolve: {
-		extensions: ['', '.js', '.jsx']
+		extensions: ['.js', '.jsx']
 	}
 };
