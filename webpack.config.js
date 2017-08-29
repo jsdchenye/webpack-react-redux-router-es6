@@ -26,7 +26,6 @@ module.exports = {
 		inline: true,
 		host: '0.0.0.0',  //保证本地可通过ip访问
 		port: 8880,
-		contentBase: "build",
 		proxy: {
 			'/partner/*': {
 				target: 'http://10.19.145.19:8127',
@@ -101,9 +100,9 @@ module.exports = {
 			manifest: require('./manifest.json'),
 		}),
 		new webpack.ProvidePlugin({
-			// $: "jquery",
-			// jQuery: "jquery",
-			// "window.jQuery": "jquery"
+			$: "jquery",
+			jQuery: "jquery",
+			"window.jQuery": "jquery"
 		}),
 	],
 	resolve: {

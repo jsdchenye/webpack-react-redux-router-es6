@@ -37,10 +37,11 @@
     "echarts": "^3.3.0",
     "html-webpack-plugin": "^2.24.0",
     "less": "^2.7.1",
-    "postcss-loader": "^2.0.6",
     "less-loader": "^2.2.3",
+    "postcss-loader": "^2.0.6",
     "style-loader": "^0.13.1",
     "uglify": "^0.1.5",
+    "uglifyjs-webpack-plugin": "^0.4.6",
     "underscore": "^1.8.3",
     "webpack": "^2.3.2",
     "webpack-dev-server": "^2.4.2"

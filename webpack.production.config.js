@@ -4,6 +4,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
+var UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var ROOT_PATH = path.resolve(__dirname);
@@ -23,42 +24,57 @@ module.exports = {
 		// publicPath: '/',
 	},
 	module: {
-		loaders: [
-			{
-				test: /\.css$/,
-				loaders: ExtractTextPlugin.extract("style-loader", "css-loader"),
-				include: APP_PATH
-			},
+		rules: [
 			{
 				test: /\.less$/,
-				loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader"),
+				use: [
+					'style-loader',
+					'css-loader',
+					'postcss-loader',
+					{
+						loader: 'less-loader',
+					},
+				],
 				include: APP_PATH
 			},
 			{
 				test: /\.(png|jpg)$/,
-				loader: 'url?limit=40000'
+				use: [{
+					loader: 'url-loader',
+					options: {limit: 40000}
+				}],
 			},
 			{
 				test: /\.jsx?$/,
-				loader: 'babel',
+				use: [
+					{
+						loader: 'babel-loader',
+						query: {
+							presets :['es2016', 'es2017', 'stage-2', 'react'],
+						}
+					}
+				],
 				include: APP_PATH,
 				exclude: /node_modules/
 			},
 			{
 				test: /\.woff|\.woff2|\.svg|\.eot|\.ttf/,
-				loader: 'file-loader?name=[name].[ext]'
+				use: [{
+					loader: 'file-loader',
+					options: {
+						name: '[name].[ext]'
+					}
+				}],
 			}
 		]
 	},
-	babel: {
-		presets: ['es2015','stage-0','react']
-	},
 	plugins: [
+		new webpack.LoaderOptionsPlugin({ options: { postcss: ['autoprefixer'] } }),
 		new HtmlwebpackPlugin({
 			title: 'demo',
 			template: path.resolve(TEMP_PATH,'index_production.html'),
 			filename: 'index.html',
-			chunks: ['common','index'],
+			chunks: ['commons','index'],
 			inject: 'body',
 		}),
 		new webpack.ProvidePlugin({
@@ -69,23 +85,37 @@ module.exports = {
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
 		}),
-		new webpack.optimize.UglifyJsPlugin({
-			output: {
-				comments: false
-			},
+		// 代码压缩
+		new UglifyJSPlugin({
+			minimize: true,
+			comments: false,
 			compress: {
-				warnings: false
-			}
+				// 在UglifyJs删除没有用到的代码时不输出警告
+				warnings: false,
+				// optimize if-s and conditional expressions
+				conditionals: true,
+				// 删除所有的 `console` 语句
+				// 还可以兼容ie浏览器
+				drop_console: true,
+				// 内嵌定义了但是只用到一次的变量
+				collapse_vars: true,
+				// 提取出出现多次但是没有定义成变量去引用的静态值
+				reduce_vars: true,
+			},
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
-			name: 'common',
-			filename: 'common.js',
+			name: 'commons',
+			filename: 'commons-[hash:6].js',
 			minChunks: 2
 		}),
-		new ExtractTextPlugin("common.css")
+		new ExtractTextPlugin({
+			filename: '[name]-[chunkhash:6].css',
+			disable: false,
+			allChunks: true,
+		})
 	],
 	resolve: {
-		modulesDirectories: ['node_modules', 'static'],
-		extensions: ['','.js','.jsx']
+		modules: ['node_modules', 'static'],
+		extensions: ['.js','.jsx']
 	}
 };
