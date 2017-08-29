@@ -4,6 +4,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 var ROOT_PATH = path.join(__dirname);
 var APP_PATH = path.join(ROOT_PATH, 'app');
@@ -20,20 +21,20 @@ module.exports = {
 		publicPath: '',
 	},
 	devtool : 'eval-source-map',
-	devServer: {
-		historyApiFallback: true,
-		hot: false,
-		inline: true,
-		host: '0.0.0.0',  //保证本地可通过ip访问
-		port: 8880,
-		proxy: {
-			'/partner/*': {
-				target: 'http://10.19.145.19:8127',
-				secure: false,
-				// changeOrigin: true
-			}
-		}
-	},
+	// devServer: {
+	// 	historyApiFallback: true,
+	// 	hot: false,
+	// 	inline: true,
+	// 	host: '0.0.0.0',  //保证本地可通过ip访问
+	// 	port: 8880,
+	// 	proxy: {
+	// 		'/partner/*': {
+	// 			target: 'http://10.19.145.19:8127',
+	// 			secure: false,
+	// 			// changeOrigin: true
+	// 		}
+	// 	}
+	// },
 	module: {
 		rules: [
 			{
@@ -101,6 +102,33 @@ module.exports = {
 			manifest: require('./manifest.json'),
 		}),
 		new webpack.ProvidePlugin({
+		}),
+		new BundleAnalyzerPlugin({
+			analyzerMode: 'server',
+			// Host that will be used in `server` mode to start HTTP server.
+			analyzerHost: '127.0.0.1',
+			// Port that will be used in `server` mode to start HTTP server.
+			analyzerPort: 8888,
+			// Path to bundle report file that will be generated in `static` mode.
+			// Relative to bundles output directory.
+			reportFilename: 'report.html',
+			// Module sizes to show in report by default.
+			// Should be one of `stat`, `parsed` or `gzip`.
+			// See "Definitions" section for more information.
+			defaultSizes: 'parsed',
+			// Automatically open report in default browser
+			openAnalyzer: true,
+			// If `true`, Webpack Stats JSON file will be generated in bundles output directory
+			generateStatsFile: false,
+			// Name of Webpack Stats JSON file that will be generated if `generateStatsFile` is `true`.
+			// Relative to bundles output directory.
+			statsFilename: 'stats.json',
+			// Options for `stats.toJson()` method.
+			// For example you can exclude sources of your modules from stats file with `source: false` option.
+			// See more options here: https://github.com/webpack/webpack/blob/webpack-1/lib/Stats.js#L21
+			statsOptions: null,
+			// Log level. Can be 'info', 'warn', 'error' or 'silent'.
+			logLevel: 'info'
 		}),
 	],
 	resolve: {

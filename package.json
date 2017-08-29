@@ -7,7 +7,7 @@
     "start": "webpack-dev-server --progress --profile --colors --hot",
     "build": "webpack --progress --profile --colors --config webpack.production.config.js",
     "dll": "webpack --config webpack.dll.config.js",
-    "analyze": "webpack --json --profile > stats.json",
+    "analyze": "webpack --progress --profile --colors --config webpack.analyze.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -45,6 +45,7 @@
     "uglifyjs-webpack-plugin": "^0.4.6",
     "underscore": "^1.8.3",
     "webpack": "^2.3.2",
+    "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {

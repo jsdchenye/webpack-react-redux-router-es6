@@ -7,7 +7,6 @@ var webpack = require('webpack');
 var ROOT_PATH = path.join(__dirname);
 
 var vendors = [
-	'jquery',
 	'react',
 	'react-dom',
 	'redux',
