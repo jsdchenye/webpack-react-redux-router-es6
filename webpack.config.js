@@ -59,8 +59,9 @@ module.exports = {
 				test: /\.jsx?$/,
 				use: [
 					{
-						loader: 'babel-loader',
+						loader: 'babel-loader?cacheDirectory',
 						query: {
+							babelrc: false,
 							presets :['es2016', 'es2017', 'stage-2', 'react'],
 						}
 					}
@@ -106,7 +107,7 @@ module.exports = {
 		}),
 	],
 	resolve: {
-		modules: ['node_modules', 'static'],
+		modules: [path.resolve(__dirname, 'node_modules'), 'static'],
 		extensions: ['.js','.jsx']
 	}
 };

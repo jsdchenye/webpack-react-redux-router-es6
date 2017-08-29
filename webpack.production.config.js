@@ -20,7 +20,7 @@ module.exports = {
 	},
 	output: {
 		path: BUILD_PATH,
-		filename: '[name].[hash].js',
+		filename: '[name]_[chunkhash].js',
 		// publicPath: '/',
 	},
 	module: {
@@ -29,7 +29,7 @@ module.exports = {
 				test: /\.less$/,
 				use: [
 					'style-loader',
-					'css-loader',
+					'css-loader?minimize',
 					'postcss-loader',
 					{
 						loader: 'less-loader',
@@ -50,7 +50,10 @@ module.exports = {
 					{
 						loader: 'babel-loader',
 						query: {
-							presets :['es2016', 'es2017', 'stage-2', 'react'],
+							babelrc: false,
+							presets :[
+								['es2015',{"modules": false}],
+								'es2016', 'es2017', 'stage-2', 'react'],
 						}
 					}
 				],
@@ -88,6 +91,8 @@ module.exports = {
 		// 代码压缩
 		new UglifyJSPlugin({
 			minimize: true,
+			// 最紧凑的输出
+			beautify: false,
 			comments: false,
 			compress: {
 				// 在UglifyJs删除没有用到的代码时不输出警告
@@ -105,17 +110,18 @@ module.exports = {
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'commons',
-			filename: 'commons-[hash:6].js',
+			filename: 'commons_[hash].js',
 			minChunks: 2
 		}),
 		new ExtractTextPlugin({
-			filename: '[name]-[chunkhash:6].css',
+			filename: '[name]_[chunkhash].css',
 			disable: false,
 			allChunks: true,
 		})
 	],
 	resolve: {
 		modules: ['node_modules', 'static'],
-		extensions: ['.js','.jsx']
+		extensions: ['.js','.jsx'],
+		// mainFields: ['jsnext:main','main'],
 	}
 };
