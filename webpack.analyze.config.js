@@ -13,7 +13,7 @@ var TEMP_PATH = path.join(ROOT_PATH, 'templates');
 
 module.exports = {
 	entry: {
-		index: path.resolve(APP_PATH,'index.js'),
+		index: path.resolve(APP_PATH,'index.jsx'),
 	},
 	output: {
 		path: BUILD_PATH,

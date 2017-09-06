@@ -1,7 +1,7 @@
 import componentCommon from './componentCommon';
 
 const index = {
-	componentCommon,
+  componentCommon
 };
 
 export default index;

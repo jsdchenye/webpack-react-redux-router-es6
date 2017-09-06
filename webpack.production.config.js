@@ -16,7 +16,7 @@ module.exports = {
 	entry: {
 		common: ['jquery', 'react', 'react-dom', 'redux', 'react-redux', 'redux-thunk', 'react-router', 'moment',
 			'babel-polyfill', 'underscore', 'classnames', 'antd', 'echarts'],
-		index: path.resolve(APP_PATH,'index.js'),
+		index: path.resolve(APP_PATH,'index.jsx'),
 	},
 	output: {
 		path: BUILD_PATH,
@@ -27,14 +27,16 @@ module.exports = {
 		rules: [
 			{
 				test: /\.less$/,
-				use: [
-					'style-loader',
-					'css-loader?minimize',
-					'postcss-loader',
-					{
-						loader: 'less-loader',
-					},
-				],
+				use: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: [
+						'css-loader?minimize',
+						'postcss-loader',
+						{
+							loader: 'less-loader',
+						},
+					]
+				}),
 				include: APP_PATH
 			},
 			{
